@@ -1,0 +1,21 @@
+@startuml
+title PropDevelopment: Контекстная диаграмма (Умный дом, финальная)
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(Resident, "Собственник", "Управляет доступом в дом через мобильное приложение")
+System(MobileApp, "Мобильное приложение PropDevelopment", "Позволяет управлять функциями ЖКХ и Умного дома")
+System(Backend, "Backend PropDevelopment", "Обрабатывает запросы, проверяет права и взаимодействует с партнёрскими API")
+System(Monitoring, "Система мониторинга", "Отслеживает события доступа и ошибки")
+
+System_Ext(IntercomAPI, "API Домофона", "Открывает дверь по запросу или распознаванию лица")
+System_Ext(BarrierAPI, "API Шлагбаума", "Открывает шлагбаум по номеру автомобиля")
+
+Rel(Resident, MobileApp, "Использует")
+Rel(MobileApp, Backend, "Запросы на открытие / действия")
+Rel(Backend, IntercomAPI, "Вызов API")
+Rel(Backend, BarrierAPI, "Вызов API")
+Rel(Backend, Monitoring, "Логирует событие доступа")
+@enduml
